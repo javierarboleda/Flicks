@@ -1,7 +1,5 @@
 package com.javierarboleda.flicks.network;
 
-import com.javierarboleda.flicks.activities.MovieStreamActivity;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
