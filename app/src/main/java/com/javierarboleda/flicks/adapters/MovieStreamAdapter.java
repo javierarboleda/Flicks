@@ -5,8 +5,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.javierarboleda.flicks.R;
 import com.javierarboleda.flicks.models.Movie;
 
@@ -49,6 +51,15 @@ public class MovieStreamAdapter extends RecyclerView.Adapter<MovieStreamAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         Movie movie = mMovies[position];
 
+        final String IMAGE_URL_BASE ="http://image.tmdb.org/t/p/w342";
+        String imageUrl = IMAGE_URL_BASE + movie.getPosterPath();
+        ImageView movieImageView = holder.movieImageView;
+
+        Glide.with(getContext())
+                .load(imageUrl)
+                .placeholder(R.drawable.ic_loading)
+                .into(movieImageView);
+
         TextView titleTextView = holder.titleTextView;
         titleTextView.setText(movie.getTitle());
 
@@ -63,11 +74,13 @@ public class MovieStreamAdapter extends RecyclerView.Adapter<MovieStreamAdapter.
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        public ImageView movieImageView;
         public TextView titleTextView;
         public TextView overviewTextView;
 
         public ViewHolder(View itemView) {
             super(itemView);
+            movieImageView = (ImageView) itemView.findViewById(R.id.list_item_movie_image);
             titleTextView = (TextView) itemView.findViewById(R.id.list_item_title_text_view);
             overviewTextView = (TextView) itemView.findViewById(R.id.list_item_overview_text_view);
         }

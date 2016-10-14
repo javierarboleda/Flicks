@@ -1,6 +1,5 @@
 package com.javierarboleda.flicks.activities;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,11 +8,11 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.javierarboleda.flicks.BuildConfig;
 import com.javierarboleda.flicks.R;
 import com.javierarboleda.flicks.adapters.MovieStreamAdapter;
 import com.javierarboleda.flicks.models.MovieResult;
 import com.javierarboleda.flicks.network.MovieDbNetworkHelper;
+import com.javierarboleda.flicks.utils.MovieDbUtil;
 
 import java.io.IOException;
 
@@ -56,14 +55,11 @@ public class MovieStreamActivity extends AppCompatActivity {
         final GsonBuilder gsonBuilder = new GsonBuilder();
         final Gson GSON = gsonBuilder.create();
 
-        final String MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3/movie/now_playing";
-        final String API_KEY_PARAM = "api_key";
 
-        Uri builtUri = Uri.parse(MOVIE_DB_BASE_URL).buildUpon()
-                .appendQueryParameter(API_KEY_PARAM, BuildConfig.MOVIE_DB_API_KEY)
-                .build();
 
-        MovieDbNetworkHelper.post(builtUri.toString(), "", new Callback() {
+
+
+        MovieDbNetworkHelper.post(MovieDbUtil.getRecentMoviesUrlString(), "", new Callback() {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
