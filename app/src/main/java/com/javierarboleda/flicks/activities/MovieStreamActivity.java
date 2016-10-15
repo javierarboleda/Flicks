@@ -25,7 +25,6 @@ public class MovieStreamActivity extends AppCompatActivity {
     private static final String TAG = MovieStreamActivity.class.getName();
 
     private MovieResult mMovieResult;
-    private RecyclerView mRecyclerView;
     private MovieStreamAdapter mAdapter;
 
     @Override
@@ -38,10 +37,10 @@ public class MovieStreamActivity extends AppCompatActivity {
 
     private void initRecyclerView() {
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.movie_stream_recycler_view);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.movie_stream_recycler_view);
         mAdapter = new MovieStreamAdapter(this);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 

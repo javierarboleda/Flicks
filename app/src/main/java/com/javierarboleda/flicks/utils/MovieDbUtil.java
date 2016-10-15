@@ -12,7 +12,7 @@ public class MovieDbUtil {
     public final static String MOVIE_DB_BASE_URL = "https://api.themoviedb.org/3/movie/now_playing";
     public final static String API_KEY_PARAM = "api_key";
     public final static String VOTE_COUNT_PARAM = "vote_count.gte";
-    public final static String VOTE_COUNT_MIN = "150";
+    public final static String VOTE_COUNT_MIN = "300";
     public final static String SORT_BY_PARAM = "sort_by";
     public final static String SORT_ORDER_DESCENDING = "desc";
 

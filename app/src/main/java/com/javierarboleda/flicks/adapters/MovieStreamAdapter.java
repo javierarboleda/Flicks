@@ -1,6 +1,7 @@
 package com.javierarboleda.flicks.adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,9 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.javierarboleda.flicks.R;
 import com.javierarboleda.flicks.models.Movie;
+import com.squareup.picasso.Picasso;
+
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * Created on 10/11/16.
@@ -19,6 +22,7 @@ public class MovieStreamAdapter extends RecyclerView.Adapter<MovieStreamAdapter.
 
     private Movie[] mMovies;
     private Context mContext;
+    private boolean mPortrait;
 
     public MovieStreamAdapter(Context context) {
         mMovies = new Movie[0];
@@ -36,6 +40,9 @@ public class MovieStreamAdapter extends RecyclerView.Adapter<MovieStreamAdapter.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        mPortrait = mContext.getResources().getConfiguration().orientation
+                        == Configuration.ORIENTATION_PORTRAIT;
+
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -52,12 +59,25 @@ public class MovieStreamAdapter extends RecyclerView.Adapter<MovieStreamAdapter.
         Movie movie = mMovies[position];
 
         final String IMAGE_URL_BASE ="http://image.tmdb.org/t/p/w342";
-        String imageUrl = IMAGE_URL_BASE + movie.getPosterPath();
+        String imageUrl;
+        int placeholderResourceId;
+
+        if (mPortrait) {
+            imageUrl = IMAGE_URL_BASE + movie.getPosterPath();
+            placeholderResourceId = R.drawable.poster_placeholder_w342;
+        } else {
+            imageUrl = IMAGE_URL_BASE + movie.getBackdropPath();
+            placeholderResourceId = R.drawable.backdrop_placeholder_w780;
+        }
+
         ImageView movieImageView = holder.movieImageView;
 
-        Glide.with(getContext())
+        Picasso.with(getContext())
                 .load(imageUrl)
-                .placeholder(R.drawable.ic_loading)
+                .fit()
+                .centerCrop()
+                .placeholder(placeholderResourceId)
+                .transform(new RoundedCornersTransformation(10, 10))
                 .into(movieImageView);
 
         TextView titleTextView = holder.titleTextView;
