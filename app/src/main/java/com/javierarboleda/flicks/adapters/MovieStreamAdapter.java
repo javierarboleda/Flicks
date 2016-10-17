@@ -1,6 +1,7 @@
 package com.javierarboleda.flicks.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.javierarboleda.flicks.R;
+import com.javierarboleda.flicks.activities.MovieDetailsActivity;
 import com.javierarboleda.flicks.models.Movie;
+import com.javierarboleda.flicks.utils.AppConstants;
+import com.javierarboleda.flicks.utils.MovieDbUtil;
 import com.squareup.picasso.Picasso;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
@@ -58,15 +62,16 @@ public class MovieStreamAdapter extends RecyclerView.Adapter<MovieStreamAdapter.
     public void onBindViewHolder(ViewHolder holder, int position) {
         Movie movie = mMovies[position];
 
-        final String IMAGE_URL_BASE ="http://image.tmdb.org/t/p/w342";
         String imageUrl;
         int placeholderResourceId;
 
         if (mPortrait) {
-            imageUrl = IMAGE_URL_BASE + movie.getPosterPath();
+            imageUrl = MovieDbUtil.IMAGE_URL_BASE + MovieDbUtil.IMAGE_SIZE_W342
+                    + movie.getPosterPath();
             placeholderResourceId = R.drawable.poster_placeholder_w342;
         } else {
-            imageUrl = IMAGE_URL_BASE + movie.getBackdropPath();
+            imageUrl = MovieDbUtil.IMAGE_URL_BASE + MovieDbUtil.IMAGE_SIZE_W342
+                    + movie.getBackdropPath();
             placeholderResourceId = R.drawable.backdrop_placeholder_w780;
         }
 
@@ -92,7 +97,7 @@ public class MovieStreamAdapter extends RecyclerView.Adapter<MovieStreamAdapter.
         return mMovies.length;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public ImageView movieImageView;
         public TextView titleTextView;
@@ -103,6 +108,28 @@ public class MovieStreamAdapter extends RecyclerView.Adapter<MovieStreamAdapter.
             movieImageView = (ImageView) itemView.findViewById(R.id.list_item_movie_image);
             titleTextView = (TextView) itemView.findViewById(R.id.list_item_title_text_view);
             overviewTextView = (TextView) itemView.findViewById(R.id.list_item_overview_text_view);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Movie movie = mMovies[getAdapterPosition()];
+
+            Intent intent = new Intent(mContext, MovieDetailsActivity.class);
+            intent.putExtra(AppConstants.BACKDROP_IMAGE_URL, MovieDbUtil.IMAGE_URL_BASE +
+                    MovieDbUtil.IMAGE_SIZE_w780 + movie.getBackdropPath());
+            intent.putExtra(AppConstants.MOVIE_TITLE, movie.getTitle());
+            intent.putExtra(AppConstants.OVERVIEW, movie.getOverview());
+            intent.putExtra(AppConstants.RELEASE_DATE,
+                    MovieDbUtil.getHumanReadableReleaseDate(movie.getReleaseDate()));
+            intent.putExtra(AppConstants.VOTE_AVERAGE, movie.getVoteAverage());
+            intent.putExtra(AppConstants.POSTER_IMAGE_URL, MovieDbUtil.IMAGE_URL_BASE +
+                    MovieDbUtil.IMAGE_SIZE_W342 + movie.getPosterPath());
+            intent.putExtra(AppConstants.VOTE_COUNT, movie.getVoteCount());
+
+            mContext.startActivity(intent);
+
         }
     }
 }

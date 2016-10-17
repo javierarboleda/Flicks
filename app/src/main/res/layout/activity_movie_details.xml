@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkGray">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+
+        <ImageView
+            android:id="@+id/movie_details_backdrop_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:adjustViewBounds="true"
+            />
+
+
+        <RatingBar
+            android:id="@+id/rating_bar"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:numStars="10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/movie_details_backdrop_image_view"
+            />
+
+        <ImageView
+            android:id="@+id/movie_details_poster_image_view"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_below="@+id/rating_bar"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:adjustViewBounds="true"
+            />
+
+        <TextView
+            android:id="@+id/movie_details_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_below="@+id/rating_bar"
+            android:layout_toRightOf="@id/movie_details_poster_image_view"
+            android:layout_toEndOf="@+id/movie_details_poster_image_view"
+            android:textColor="@color/gray"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            />
+
+        <TextView
+            android:id="@+id/movie_details_release_date_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_below="@+id/movie_details_title_text_view"
+            android:layout_toRightOf="@id/movie_details_poster_image_view"
+            android:layout_toEndOf="@+id/movie_details_poster_image_view"
+            android:textColor="@color/gray"
+            />
+
+        <TextView
+            android:id="@+id/movie_details_vote_count_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_below="@+id/movie_details_release_date_text_view"
+            android:layout_toRightOf="@id/movie_details_poster_image_view"
+            android:layout_toEndOf="@+id/movie_details_poster_image_view"
+            android:textColor="@color/gray"
+            />
+
+        <TextView
+            android:id="@+id/movie_details_overview_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_below="@+id/movie_details_poster_image_view"
+            android:textColor="@color/gray"
+            />
+
+    </RelativeLayout>
+</ScrollView>
